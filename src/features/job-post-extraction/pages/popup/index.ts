@@ -2,15 +2,15 @@ import {
   LINKEDIN_CONTENT_SEARCH_PATTERN,
   MESSAGE_TYPES,
   SCAN_STATUS
-} from "../../config/runtime-constants.js";
-import { getSettings } from "../../storage/settings-store.js";
+} from "../../config/runtime-constants";
+import { getSettings } from "../../storage/settings-store";
 import {
   clearCurrentScanData,
   getCurrentScan,
   getScanData,
   updateScan
-} from "../../storage/scans-store.js";
-import { exportCsv, exportJson } from "./export.js";
+} from "../../storage/scans-store";
+import { exportCsv, exportJson } from "./export";
 import {
   getPopupElements,
   hideError,
@@ -19,7 +19,7 @@ import {
   renderProfiles,
   renderScanData,
   showError
-} from "./render.js";
+} from "./render";
 
 const elements = getPopupElements();
 
@@ -32,6 +32,7 @@ chrome.runtime.onMessage.addListener((message) => {
   if (message.type === MESSAGE_TYPES.scanUpdated) {
     refreshScanData();
   }
+  return false;
 });
 
 async function initializePopup() {
@@ -157,7 +158,7 @@ function updateStartButtonState() {
 
 function openPostsPage() {
   chrome.tabs.create({
-    url: chrome.runtime.getURL("src/features/job-post-extraction/pages/results/index.html")
+    url: chrome.runtime.getURL("results.html")
   });
 }
 

@@ -1,5 +1,5 @@
-import { DEFAULT_SETTINGS } from "../config/default-profiles.js";
-import { STORAGE_KEYS } from "../config/runtime-constants.js";
+import { DEFAULT_SETTINGS } from "../config/default-profiles";
+import { STORAGE_KEYS } from "../config/runtime-constants";
 
 export async function getSettings() {
   const data = await chrome.storage.local.get(STORAGE_KEYS.settings);

@@ -1,8 +1,22 @@
 {
+  "type": "module",
+  "packageManager": "pnpm@11.1.2",
   "scripts": {
-    "build:css": "tailwindcss -i ./src/styles/tailwind.css -o ./src/styles/styles.css --minify"
+    "dev": "wxt",
+    "build": "pnpm run build:css && wxt build",
+    "build:css": "tailwindcss -i ./src/styles/tailwind.css -o ./src/styles/styles.css --minify",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:e2e": "pnpm run build && playwright test"
   },
   "devDependencies": {
-    "tailwindcss": "3.4.17"
+    "@playwright/test": "^1.61.1",
+    "chrome-types": "^0.1.429",
+    "jsdom": "^29.1.1",
+    "playwright": "^1.61.1",
+    "tailwindcss": "3.4.17",
+    "typescript": "^6.0.3",
+    "vitest": "^4.1.9",
+    "wxt": "^0.20.27"
   }
 }

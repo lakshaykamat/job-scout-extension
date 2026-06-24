@@ -2,7 +2,7 @@
 
 ## Project Structure & Module Organization
 
-This is a Manifest V3 Chrome extension for a job-finding assistant. The current feature scans LinkedIn content search results and extracts hiring leads; future areas may include form filling, Gmail outreach drafting, follow-ups, and other job-search automation. Entry points are declared in `manifest.json`.
+This is a Manifest V3 Chrome extension for a job-finding assistant. The current feature scans LinkedIn content search results and extracts hiring leads; future areas may include form filling, Gmail outreach drafting, follow-ups, and other job-search automation. Entry points are declared under `entrypoints/` and the generated manifest is configured by `wxt.config.ts`.
 
 Current runtime code lives under `src/`:
 
@@ -26,10 +26,15 @@ Keep business logic inside feature folders. Put only stable generic utilities in
 
 ## Build, Test, and Development Commands
 
-- `npm install` installs locked dependencies from `package-lock.json`.
-- `npm run build:css` compiles and minifies Tailwind into `src/styles/styles.css`.
+- `pnpm install` installs locked dependencies from `pnpm-lock.yaml`.
+- `pnpm run dev` starts WXT development mode.
+- `pnpm run build` compiles Tailwind and builds the Chrome MV3 extension into `.output/chrome-mv3`.
+- `pnpm run build:css` compiles and minifies Tailwind into `src/styles/styles.css`.
+- `pnpm run typecheck` runs TypeScript checking.
+- `pnpm run test` runs Vitest unit tests.
+- `pnpm run test:e2e` builds the extension and runs Playwright smoke tests.
 
-There is no local dev server or test script. To run manually, load this directory as an unpacked Chrome extension and test on `https://www.linkedin.com/search/results/content/*`.
+To run manually, build the extension, load `.output/chrome-mv3` as an unpacked Chrome extension, and test on `https://www.linkedin.com/search/results/content/*`.
 
 ## Coding Style & Naming Conventions
 
@@ -41,12 +46,12 @@ Feature modules should expose small public functions and hide DOM, Chrome API, o
 
 ## Testing Guidelines
 
-No automated test framework is configured. For changes, reload the unpacked extension, open the popup on a supported LinkedIn page, start and stop a scan, verify results, and test JSON/CSV export. If adding tests later, colocate feature tests with the feature or use `tests/`.
+Use Vitest for unit tests and Playwright for extension smoke tests. For behavior changes, also reload the unpacked extension, open the popup on a supported LinkedIn page, start and stop a scan, verify results, and test JSON/CSV export. Colocate feature unit tests with the feature.
 
 ## Commit & Pull Request Guidelines
 
-This repository has no existing commits, so no historical convention is available. Use concise, imperative commits such as `Add scan export controls`. PRs should describe the user-facing change, list manual test steps, link issues, and include screenshots for UI changes.
+Use concise, imperative commits such as `Add scan export controls`. PRs should describe the user-facing change, list manual test steps, link issues, and include screenshots for UI changes.
 
 ## Security & Configuration Tips
 
-Keep extension permissions in `manifest.json` narrow. Gmail, form-filling, or other integrations must request only the minimum host permissions needed. Route Chrome storage access through the owning feature's storage module instead of calling Chrome storage directly from multiple modules.
+Keep extension permissions in `wxt.config.ts` narrow. Gmail, form-filling, or other integrations must request only the minimum host permissions needed. Route Chrome storage access through the owning feature's storage module instead of calling Chrome storage directly from multiple modules.

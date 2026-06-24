@@ -1,4 +1,14 @@
-(() => {
+import "./globals";
+import "./text";
+import "./dom";
+import "./links";
+import "./author";
+import "./post-finder";
+import "./post-extractor";
+import "./scroll";
+import "./scanner";
+
+export function initializeLinkedInContentScanner() {
   const scanner = globalThis.LinkedInHiringScanner;
   const { MESSAGE_TYPES } = scanner;
 
@@ -31,4 +41,4 @@
 
     return false;
   });
-})();
+}

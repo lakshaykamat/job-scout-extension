@@ -1,12 +1,12 @@
-import { DEFAULT_SETTINGS } from "../../config/default-profiles.js";
-import { escapeAttribute, escapeHtml } from "../../../../shared/dom.js";
-import { getSettings, saveSettings } from "../../storage/settings-store.js";
+import { DEFAULT_SETTINGS } from "../../config/default-profiles";
+import { escapeAttribute, escapeHtml } from "../../../../shared/dom";
+import { getSettings, saveSettings } from "../../storage/settings-store";
 
-const form = document.querySelector("#settingsForm");
-const scrollDelayInput = document.querySelector("#scrollDelayInput");
-const profileEditor = document.querySelector("#profileEditor");
-const resetButton = document.querySelector("#resetButton");
-const saveStatus = document.querySelector("#saveStatus");
+const form = document.querySelector("#settingsForm") as HTMLFormElement;
+const scrollDelayInput = document.querySelector("#scrollDelayInput") as HTMLInputElement;
+const profileEditor = document.querySelector("#profileEditor") as HTMLElement;
+const resetButton = document.querySelector("#resetButton") as HTMLButtonElement;
+const saveStatus = document.querySelector("#saveStatus") as HTMLElement;
 
 let settings = null;
 
@@ -95,7 +95,7 @@ function collectProfiles() {
 
 function getKeywords(profileId, field) {
   const selector = `[data-profile-id="${cssEscape(profileId)}"][data-field="${field}"]`;
-  const textarea = profileEditor.querySelector(selector);
+  const textarea = profileEditor.querySelector(selector) as HTMLTextAreaElement | null;
   return String(textarea?.value || "")
     .split(/\n|,/)
     .map((keyword) => keyword.trim())

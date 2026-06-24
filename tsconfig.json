@@ -1,0 +1,22 @@
+{
+  "extends": "./.wxt/tsconfig.json",
+  "compilerOptions": {
+    "allowJs": false,
+    "baseUrl": ".",
+    "ignoreDeprecations": "6.0",
+    "noImplicitAny": false,
+    "strict": false,
+    "types": [
+      "chrome-types",
+      "vitest/globals"
+    ]
+  },
+  "include": [
+    ".wxt/**/*.d.ts",
+    "entrypoints/**/*.ts",
+    "src/**/*.ts",
+    "tests/**/*.ts",
+    "e2e/**/*.ts",
+    "*.config.ts"
+  ]
+}

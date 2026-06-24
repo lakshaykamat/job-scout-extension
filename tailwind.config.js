@@ -1,7 +1,9 @@
-module.exports = {
+export default {
   content: [
     "./src/**/*.html",
-    "./src/**/*.js"
+    "./src/**/*.ts",
+    "./entrypoints/**/*.html",
+    "./entrypoints/**/*.ts"
   ],
   theme: {
     extend: {

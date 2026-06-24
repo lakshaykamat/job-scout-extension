@@ -20,19 +20,36 @@ This is not just a scraper. The goal is a browser-based assistant that helps mov
 ## Development
 
 ```bash
-npm install
-npm run build:css
+pnpm install
+pnpm run dev
+pnpm run build
+pnpm run typecheck
+pnpm run test
+pnpm run test:e2e
 ```
 
-Load the repository as an unpacked extension from `chrome://extensions`, then test on a LinkedIn content search URL:
+`pnpm run build` writes the loadable Chrome MV3 extension to:
+
+```text
+.output/chrome-mv3
+```
+
+Load `.output/chrome-mv3` as an unpacked extension from `chrome://extensions`, then test on a LinkedIn content search URL:
 
 ```text
 https://www.linkedin.com/search/results/content/*
 ```
 
+Tailwind can also be compiled directly when needed:
+
+```bash
+pnpm run build:css
+```
+
 The code follows a feature-first hybrid architecture:
 
 ```text
+entrypoints/                         WXT extension entrypoints and page HTML
 src/features/job-post-extraction/   Current LinkedIn lead extraction workflow
 src/domain/job-search/              Shared job-search concepts and types
 src/shared/                         Generic utilities only

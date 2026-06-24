@@ -1,8 +1,8 @@
-import { escapeAttribute, escapeHtml } from "../../../../shared/dom.js";
-import { formatStatus, formatTime } from "../../../../shared/format.js";
-import { LINKEDIN_CONTENT_SEARCH_PATTERN, SCAN_STATUS } from "../../config/runtime-constants.js";
+import { escapeAttribute, escapeHtml } from "../../../../shared/dom";
+import { formatStatus, formatTime } from "../../../../shared/format";
+import { LINKEDIN_CONTENT_SEARCH_PATTERN, SCAN_STATUS } from "../../config/runtime-constants";
 
-export function getPopupElements() {
+export function getPopupElements(): any {
   return {
     pageStatus: document.querySelector("#pageStatus"),
     profileSelect: document.querySelector("#profileSelect"),

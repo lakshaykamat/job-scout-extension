@@ -2,35 +2,37 @@ import {
   LINKEDIN_CONTENT_SEARCH_PATTERN,
   MESSAGE_TYPES,
   SCAN_STATUS
-} from "../config/runtime-constants.js";
-import { getSettings } from "../storage/settings-store.js";
+} from "../config/runtime-constants";
+import { getSettings } from "../storage/settings-store";
 import {
   createScan,
   getCurrentScan,
   getScanData,
   mergePosts,
   updateScan
-} from "../storage/scans-store.js";
-import { getMatchingPosts } from "./post-filter.js";
+} from "../storage/scans-store";
+import { getMatchingPosts } from "./post-filter";
 
-chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-  handleMessage(message, sender)
-    .then(sendResponse)
-    .catch((error) => sendResponse({ ok: false, error: error.message }));
-  return true;
-});
+export function initializeBackground() {
+  chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+    handleMessage(message)
+      .then(sendResponse)
+      .catch((error) => sendResponse({ ok: false, error: error.message }));
+    return true;
+  });
 
-chrome.tabs.onUpdated.addListener((tabId, changeInfo) => {
-  if (changeInfo.status === "loading") {
-    stopRunningScanForTab(tabId, "Page reloaded. Start a new scan when the results finish loading.")
-      .catch((error) => console.warn("Could not stop scan after reload.", error));
-  }
-});
+  chrome.tabs.onUpdated.addListener((tabId, changeInfo) => {
+    if (changeInfo.status === "loading") {
+      stopRunningScanForTab(tabId, "Page reloaded. Start a new scan when the results finish loading.")
+        .catch((error) => console.warn("Could not stop scan after reload.", error));
+    }
+  });
 
-chrome.tabs.onRemoved.addListener((tabId) => {
-  stopRunningScanForTab(tabId, "Source tab closed.")
-    .catch((error) => console.warn("Could not stop scan after tab close.", error));
-});
+  chrome.tabs.onRemoved.addListener((tabId) => {
+    stopRunningScanForTab(tabId, "Source tab closed.")
+      .catch((error) => console.warn("Could not stop scan after tab close.", error));
+  });
+}
 
 async function handleMessage(message) {
   if (message.type === MESSAGE_TYPES.startScan) {

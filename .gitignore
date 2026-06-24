@@ -17,6 +17,10 @@ dist/
 build/
 coverage/
 .cache/
+.output/
+.wxt/
+playwright-report/
+test-results/
 
 # Editor and OS files
 .DS_Store

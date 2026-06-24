@@ -1,16 +1,14 @@
-import { downloadFile, toCsvCell } from "../../../../shared/download.js";
+import { downloadFile, toCsvCell } from "../../../../shared/download";
+import { formatDate } from "../../../../shared/format";
 
-export function exportJson(scanData) {
-  downloadFile("linkedin-hiring-posts.json", JSON.stringify(scanData, null, 2), "application/json");
-}
-
-export function exportCsv(scanData) {
-  const rows = scanData.posts.map((post) => [
+export function exportCsv(posts) {
+  const rows = posts.map((post) => [
     post.author || "",
     post.authorHeadline || "",
     post.authorProfileUrl || "",
     post.connectionDegree || "",
     post.timestamp || "",
+    formatDate(post.foundAt),
     (post.hashtags || []).join(" "),
     (post.externalLinks || []).map((link) => link.resolvedUrl || link.url).join(" | "),
     post.preview?.title || "",
@@ -30,6 +28,7 @@ export function exportCsv(scanData) {
       "author_profile_url",
       "connection_degree",
       "timestamp",
+      "extracted_at",
       "hashtags",
       "external_links",
       "preview_title",
@@ -44,5 +43,5 @@ export function exportCsv(scanData) {
     ...rows
   ].map((row) => row.map(toCsvCell).join(",")).join("\n");
 
-  downloadFile("linkedin-hiring-posts.csv", csv, "text/csv");
+  downloadFile("saved-linkedin-posts.csv", csv, "text/csv");
 }

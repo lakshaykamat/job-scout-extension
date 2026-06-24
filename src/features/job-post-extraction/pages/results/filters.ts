@@ -1,4 +1,4 @@
-import { formatDate } from "../../../../shared/format.js";
+import { formatDate } from "../../../../shared/format";
 
 export function getVisiblePosts(posts, filters) {
   const query = filters.query.trim().toLowerCase();

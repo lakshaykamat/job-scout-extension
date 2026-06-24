@@ -1,7 +1,7 @@
-import { escapeAttribute, escapeHtml } from "../../../../shared/dom.js";
-import { formatDate, formatStatus } from "../../../../shared/format.js";
+import { escapeAttribute, escapeHtml } from "../../../../shared/dom";
+import { formatDate, formatStatus } from "../../../../shared/format";
 
-export function getResultsElements() {
+export function getResultsElements(): any {
   return {
     scanMeta: document.querySelector("#scanMeta"),
     searchInput: document.querySelector("#searchInput"),

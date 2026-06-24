@@ -1,4 +1,4 @@
-import { STORAGE_KEYS } from "../config/runtime-constants.js";
+import { STORAGE_KEYS } from "../config/runtime-constants";
 
 export async function createScan(sourceUrl, profile, sourceTabId) {
   const id = `scan-${Date.now()}`;

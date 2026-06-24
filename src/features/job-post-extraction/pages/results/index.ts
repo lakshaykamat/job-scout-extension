@@ -1,7 +1,7 @@
-import { clearCurrentScanData, getCurrentScan, getScanData } from "../../storage/scans-store.js";
-import { exportCsv } from "./export.js";
-import { getVisiblePosts } from "./filters.js";
-import { getResultsElements, renderPage, renderPosts } from "./render.js";
+import { clearCurrentScanData, getCurrentScan, getScanData } from "../../storage/scans-store";
+import { exportCsv } from "./export";
+import { getVisiblePosts } from "./filters";
+import { getResultsElements, renderPage, renderPosts } from "./render";
 
 const elements = getResultsElements();
 
