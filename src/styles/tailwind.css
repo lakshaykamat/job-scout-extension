@@ -1,0 +1,76 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-paper text-ink antialiased;
+    font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+
+  button,
+  input,
+  select,
+  textarea {
+    font: inherit;
+  }
+
+  button:disabled {
+    @apply cursor-not-allowed opacity-50;
+  }
+}
+
+@layer components {
+  .popup-body {
+    width: 420px;
+    min-height: 620px;
+  }
+
+  .shell {
+    @apply p-4;
+  }
+
+  .page-shell {
+    @apply mx-auto max-w-4xl p-6;
+  }
+
+  .panel {
+    @apply rounded-lg border border-line bg-card shadow-sm;
+  }
+
+  .button-primary {
+    @apply inline-flex h-10 items-center justify-center rounded-md bg-moss px-4 text-sm font-bold text-white transition hover:bg-ink;
+  }
+
+  .button-secondary {
+    @apply inline-flex h-10 items-center justify-center rounded-md bg-stone-200 px-4 text-sm font-bold text-ink transition hover:bg-stone-300;
+  }
+
+  .button-ghost {
+    @apply inline-flex h-10 items-center justify-center rounded-md px-3 text-sm font-bold text-stone-600 transition hover:bg-stone-200;
+  }
+
+  .field-label {
+    @apply grid gap-1.5 text-xs font-bold uppercase tracking-wide text-stone-600;
+  }
+
+  .field-input {
+    @apply min-h-10 rounded-md border border-line bg-white px-3 text-sm text-ink outline-none transition focus:border-moss focus:ring-2 focus:ring-mint;
+  }
+
+  .textarea-input {
+    @apply min-h-28 rounded-md border border-line bg-white p-3 text-sm leading-5 text-ink outline-none transition focus:border-moss focus:ring-2 focus:ring-mint;
+  }
+
+  .stat-box {
+    @apply rounded-md border border-line bg-white p-3;
+  }
+
+  .result-card {
+    @apply grid grid-cols-[3rem_1fr] gap-3 rounded-lg border border-line bg-card p-3 shadow-sm;
+  }
+
+  .post-icon {
+    @apply grid h-11 w-11 place-items-center rounded-md bg-mint text-sm font-black text-moss;
+  }
+}

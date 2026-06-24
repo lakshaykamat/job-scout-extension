@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Saved Hiring Posts</title>
+    <link rel="stylesheet" href="../../../../styles/styles.css">
+  </head>
+  <body>
+    <main class="page-shell space-y-5">
+      <header class="panel overflow-hidden">
+        <div class="bg-ink px-5 py-5 text-white">
+          <div class="flex flex-wrap items-start justify-between gap-4">
+            <div>
+              <h1 class="text-2xl font-black tracking-tight">Saved posts</h1>
+              <p id="scanMeta" class="mt-1 text-sm text-stone-300">Loading saved scan...</p>
+            </div>
+            <div class="flex gap-2">
+              <button id="refreshButton" class="rounded-md bg-white/10 px-3 py-2 text-sm font-bold text-white hover:bg-white/20" type="button">Refresh</button>
+              <button id="exportCsvButton" class="rounded-md bg-white px-3 py-2 text-sm font-bold text-ink hover:bg-mint" type="button">Export CSV</button>
+              <button id="deleteAllButton" class="rounded-md bg-red-50 px-3 py-2 text-sm font-bold text-red-700 hover:bg-white" type="button">Delete all</button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <section class="panel grid gap-3 p-4 md:grid-cols-[1fr_auto]">
+        <label class="field-label">
+          Search saved posts
+          <input id="searchInput" class="field-input" type="search" placeholder="Search role, author, or full post text">
+        </label>
+        <div class="grid grid-cols-3 gap-2 md:w-80">
+          <div class="stat-box">
+            <strong id="savedCount" class="block text-xl">0</strong>
+            <span class="text-xs text-stone-500">saved</span>
+          </div>
+          <div class="stat-box">
+            <strong id="visibleCount" class="block text-xl">0</strong>
+            <span class="text-xs text-stone-500">visible</span>
+          </div>
+          <div class="stat-box">
+            <strong id="profileName" class="block truncate text-sm">None</strong>
+            <span class="text-xs text-stone-500">profile</span>
+          </div>
+        </div>
+        <div class="grid gap-3 md:grid-cols-2">
+          <label class="field-label">
+            Extracted from
+            <input id="extractedFromInput" class="field-input" type="datetime-local">
+          </label>
+          <label class="field-label">
+            Extracted to
+            <input id="extractedToInput" class="field-input" type="datetime-local">
+          </label>
+        </div>
+        <div class="flex items-center">
+          <button id="clearFiltersButton" class="button-secondary" type="button">Clear filters</button>
+        </div>
+      </section>
+
+      <section id="postsList" class="space-y-4"></section>
+    </main>
+    <script type="module" src="index.js"></script>
+  </body>
+</html>

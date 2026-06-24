@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hiring Lead Scanner Settings</title>
+    <link rel="stylesheet" href="../../../../styles/styles.css">
+  </head>
+  <body>
+    <main class="page-shell space-y-5">
+      <header class="panel overflow-hidden">
+        <div class="bg-ink px-5 py-5 text-white">
+          <h1 class="text-2xl font-black tracking-tight">Scanner settings</h1>
+          <p class="mt-1 text-sm text-stone-300">Choose fast local matching profiles and extend their keywords.</p>
+        </div>
+      </header>
+
+      <form id="settingsForm" class="space-y-5">
+        <section class="panel p-5">
+          <label class="field-label">
+            Scroll delay in milliseconds
+            <input id="scrollDelayInput" class="field-input" name="scrollDelayMs" type="number" min="250" max="5000" step="50">
+          </label>
+        </section>
+
+        <section id="profileEditor" class="space-y-4"></section>
+
+        <div class="flex flex-wrap items-center gap-3">
+          <button class="button-primary" type="submit">Save settings</button>
+          <button id="resetButton" class="button-secondary" type="button">Reset default profiles</button>
+          <p id="saveStatus" class="text-sm font-bold text-moss" role="status"></p>
+        </div>
+      </form>
+    </main>
+    <script type="module" src="index.js"></script>
+  </body>
+</html>

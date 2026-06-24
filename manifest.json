@@ -1,0 +1,44 @@
+{
+  "manifest_version": 3,
+  "name": "LinkedIn Hiring Lead Scanner",
+  "description": "Scans LinkedIn content search results for software hiring posts by keyword.",
+  "version": "0.2.0",
+  "action": {
+    "default_popup": "src/features/job-post-extraction/pages/popup/index.html",
+    "default_title": "Hiring Lead Scanner"
+  },
+  "background": {
+    "service_worker": "src/features/job-post-extraction/background/index.js",
+    "type": "module"
+  },
+  "options_page": "src/features/job-post-extraction/pages/options/index.html",
+  "permissions": [
+    "activeTab",
+    "storage",
+    "tabs",
+    "unlimitedStorage"
+  ],
+  "host_permissions": [
+    "https://www.linkedin.com/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.linkedin.com/search/results/content/*"
+      ],
+      "js": [
+        "src/features/job-post-extraction/content/globals.js",
+        "src/features/job-post-extraction/content/text.js",
+        "src/features/job-post-extraction/content/dom.js",
+        "src/features/job-post-extraction/content/links.js",
+        "src/features/job-post-extraction/content/author.js",
+        "src/features/job-post-extraction/content/post-finder.js",
+        "src/features/job-post-extraction/content/post-extractor.js",
+        "src/features/job-post-extraction/content/scroll.js",
+        "src/features/job-post-extraction/content/scanner.js",
+        "src/features/job-post-extraction/content/index.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ]
+}
