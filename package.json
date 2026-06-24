@@ -12,7 +12,7 @@
     "build:firefox": "pnpm run build:css && wxt build -b firefox --mv3",
     "build:edge": "pnpm run build:css && wxt build -b edge --mv3",
     "build:all": "pnpm run build:css && wxt build -b chrome --mv3 && wxt build -b firefox --mv3 && wxt build -b edge --mv3",
-    "typecheck": "tsc --noEmit",
+    "typecheck": "wxt prepare && tsc --noEmit",
     "test": "vitest run",
     "test:e2e": "pnpm run build && playwright test",
     "zip:chrome": "pnpm run build:css && wxt zip -b chrome --mv3",
