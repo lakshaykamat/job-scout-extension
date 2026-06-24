@@ -1,12 +1,41 @@
 import { defineConfig } from "wxt";
+import { readFileSync } from "node:fs";
+
+const packageJson = JSON.parse(
+  readFileSync(new URL("./package.json", import.meta.url), "utf8")
+);
+
+const extensionDescription = "Find, save, and export job opportunities from LinkedIn content search results.";
 
 export default defineConfig({
   manifest: {
-    name: "LinkedIn Hiring Lead Scanner",
-    description: "Scans LinkedIn content search results for software hiring posts by keyword.",
-    version: "0.2.0",
+    name: "Job Scout Extension",
+    description: extensionDescription,
+    version: packageJson.version,
+    icons: {
+      16: "icons/icon-16.png",
+      32: "icons/icon-32.png",
+      48: "icons/icon-48.png",
+      96: "icons/icon-96.png",
+      128: "icons/icon-128.png"
+    },
     action: {
-      default_title: "Hiring Lead Scanner"
+      default_title: "Job Scout",
+      default_icon: {
+        16: "icons/icon-16.png",
+        32: "icons/icon-32.png",
+        48: "icons/icon-48.png",
+        96: "icons/icon-96.png",
+        128: "icons/icon-128.png"
+      }
+    },
+    browser_specific_settings: {
+      gecko: {
+        id: "job-scout-extension@example.com",
+        data_collection_permissions: {
+          required: ["none"]
+        }
+      }
     },
     permissions: [
       "activeTab",

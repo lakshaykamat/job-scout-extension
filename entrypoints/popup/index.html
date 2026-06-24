@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Hiring Lead Scanner</title>
+    <title>Job Scout</title>
     <link rel="stylesheet" href="/src/styles/styles.css">
   </head>
   <body class="popup-body">
@@ -12,7 +12,7 @@
         <div class="bg-ink px-4 py-4 text-white">
           <div class="flex items-start justify-between gap-3">
             <div>
-              <h1 class="text-xl font-black tracking-tight">Hiring leads</h1>
+              <h1 class="text-xl font-black tracking-tight">Job Scout</h1>
               <p id="pageStatus" class="mt-1 text-xs text-stone-300">Checking tab...</p>
             </div>
             <button id="optionsButton" class="rounded-md bg-white/10 px-3 py-2 text-xs font-bold text-white hover:bg-white/20" type="button">
@@ -63,7 +63,7 @@
       </section>
 
       <section class="grid grid-cols-[1fr_1fr_auto] gap-2">
-        <button id="viewPostsButton" class="button-primary col-span-3" type="button">View full posts</button>
+        <button id="viewPostsButton" class="button-primary col-span-3" type="button">View opportunities</button>
         <button id="exportJsonButton" class="button-secondary" type="button">JSON</button>
         <button id="exportCsvButton" class="button-secondary" type="button">CSV</button>
         <button id="clearButton" class="button-ghost" type="button">Clear</button>
@@ -71,7 +71,7 @@
 
       <section>
         <div class="mb-2 flex items-center justify-between">
-          <h2 class="text-sm font-black uppercase tracking-wide">Saved posts</h2>
+          <h2 class="text-sm font-black uppercase tracking-wide">Saved opportunities</h2>
           <span id="resultCount" class="rounded-full bg-stone-200 px-2 py-0.5 text-xs font-bold text-stone-600">0</span>
         </div>
         <div id="resultsList" class="max-h-72 space-y-2 overflow-auto pr-1"></div>

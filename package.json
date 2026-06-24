@@ -1,13 +1,24 @@
 {
+  "name": "job-scout-extension",
+  "version": "0.0.0",
+  "description": "Find, save, and export job opportunities from LinkedIn content search results.",
   "type": "module",
   "packageManager": "pnpm@11.1.2",
   "scripts": {
     "dev": "wxt",
-    "build": "pnpm run build:css && wxt build",
+    "build": "pnpm run build:all",
     "build:css": "tailwindcss -i ./src/styles/tailwind.css -o ./src/styles/styles.css --minify",
+    "build:chrome": "pnpm run build:css && wxt build -b chrome --mv3",
+    "build:firefox": "pnpm run build:css && wxt build -b firefox --mv3",
+    "build:edge": "pnpm run build:css && wxt build -b edge --mv3",
+    "build:all": "pnpm run build:css && wxt build -b chrome --mv3 && wxt build -b firefox --mv3 && wxt build -b edge --mv3",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
-    "test:e2e": "pnpm run build && playwright test"
+    "test:e2e": "pnpm run build && playwright test",
+    "zip:chrome": "pnpm run build:css && wxt zip -b chrome --mv3",
+    "zip:firefox": "pnpm run build:css && wxt zip -b firefox --mv3",
+    "zip:edge": "pnpm run build:css && wxt zip -b edge --mv3",
+    "zip:all": "pnpm run build:css && wxt zip -b chrome --mv3 && wxt zip -b firefox --mv3 && wxt zip -b edge --mv3"
   },
   "devDependencies": {
     "@playwright/test": "^1.61.1",

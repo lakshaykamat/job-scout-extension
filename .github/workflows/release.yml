@@ -1,0 +1,104 @@
+name: Release Extension
+
+on:
+  push:
+    branches:
+      - master
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  release:
+    name: Test, tag, and publish release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 11.1.2
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Typecheck
+        run: pnpm run typecheck
+
+      - name: Unit tests
+        run: pnpm run test
+
+      - name: Install Playwright Chromium
+        run: pnpm exec playwright install --with-deps chromium
+
+      - name: Extension smoke tests
+        run: xvfb-run -a pnpm run test:e2e
+
+      - name: Resolve release version
+        run: |
+          node - <<'NODE' >> "$GITHUB_ENV"
+          const { readFileSync } = require("node:fs");
+          const packageJson = JSON.parse(readFileSync("package.json", "utf8"));
+          console.log(`RELEASE_VERSION=${packageJson.version}`);
+          console.log(`RELEASE_TAG=v${packageJson.version}`);
+          NODE
+
+      - name: Check whether release exists
+        id: release-check
+        run: |
+          if gh release view "$RELEASE_TAG" >/dev/null 2>&1; then
+            echo "Release $RELEASE_TAG already exists. Nothing to publish."
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+          fi
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build browser release zips
+        if: steps.release-check.outputs.exists == 'false'
+        run: pnpm run zip:all
+
+      - name: Create and push release tag
+        if: steps.release-check.outputs.exists == 'false'
+        run: |
+          if git rev-parse "$RELEASE_TAG" >/dev/null 2>&1; then
+            echo "Tag $RELEASE_TAG already exists locally."
+          else
+            git tag "$RELEASE_TAG" "$GITHUB_SHA"
+          fi
+          git push origin "$RELEASE_TAG"
+
+      - name: Upload release artifact
+        if: steps.release-check.outputs.exists == 'false'
+        uses: actions/upload-artifact@v4
+        with:
+          name: browser-extension-release-zips
+          path: .output/*.zip
+          if-no-files-found: error
+
+      - name: Publish GitHub release
+        if: steps.release-check.outputs.exists == 'false'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ env.RELEASE_TAG }}
+          target_commitish: ${{ github.sha }}
+          files: .output/*.zip
+          fail_on_unmatched_files: true
+          generate_release_notes: true

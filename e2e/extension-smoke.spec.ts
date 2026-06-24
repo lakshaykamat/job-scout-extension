@@ -9,9 +9,16 @@ test("built extension manifest preserves expected pages and permissions", async 
   const manifest = JSON.parse(
     await fs.readFile(path.join(extensionPath, "manifest.json"), "utf8")
   );
+  const packageJson = JSON.parse(
+    await fs.readFile(path.resolve("package.json"), "utf8")
+  );
 
   expect(manifest.manifest_version).toBe(3);
-  expect(manifest.name).toBe("LinkedIn Hiring Lead Scanner");
+  expect(manifest.name).toBe("Job Scout Extension");
+  expect(manifest.description).toBe("Find, save, and export job opportunities from LinkedIn content search results.");
+  expect(manifest.version).toBe(packageJson.version);
+  expect(manifest.icons["128"]).toBe("icons/icon-128.png");
+  expect(manifest.action.default_icon["128"]).toBe("icons/icon-128.png");
   expect(manifest.action.default_popup).toBe("popup.html");
   expect(manifest.options_ui.page).toBe("options.html");
   expect(manifest.permissions).toEqual(expect.arrayContaining([

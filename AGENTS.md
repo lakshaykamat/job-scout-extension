@@ -2,7 +2,7 @@
 
 ## Project Structure & Module Organization
 
-This is a Manifest V3 Chrome extension for a job-finding assistant. The current feature scans LinkedIn content search results and extracts hiring leads; future areas may include form filling, Gmail outreach drafting, follow-ups, and other job-search automation. Entry points are declared under `entrypoints/` and the generated manifest is configured by `wxt.config.ts`.
+This is a Manifest V3 Chrome extension for a job-finding assistant. The current feature scans LinkedIn content search results and extracts job opportunities; future areas may include form filling, Gmail outreach drafting, follow-ups, and other job-search automation. Entry points are declared under `entrypoints/` and the generated manifest is configured by `wxt.config.ts`.
 
 Current runtime code lives under `src/`:
 
@@ -16,7 +16,7 @@ Current runtime code lives under `src/`:
 
 Use feature-first hybrid architecture. Runtime-layer folders alone would tangle future LinkedIn, Gmail, and form-filling code; full Clean Architecture is too heavy for this extension today. For new product areas, add sibling features:
 
-- `src/features/job-post-extraction/` for lead discovery and extraction.
+- `src/features/job-post-extraction/` for opportunity discovery and extraction.
 - `src/features/form-filling/` for application form assistance.
 - `src/features/email-outreach/` for Gmail drafts and follow-ups.
 - Move reused job-search concepts into `src/domain/job-search/` only after more than one feature needs them.
@@ -28,19 +28,20 @@ Keep business logic inside feature folders. Put only stable generic utilities in
 
 - `pnpm install` installs locked dependencies from `pnpm-lock.yaml`.
 - `pnpm run dev` starts WXT development mode.
-- `pnpm run build` compiles Tailwind and builds the Chrome MV3 extension into `.output/chrome-mv3`.
+- `pnpm run build` compiles Tailwind and builds Chrome, Firefox, and Edge MV3 extensions into `.output/*-mv3`.
 - `pnpm run build:css` compiles and minifies Tailwind into `src/styles/styles.css`.
 - `pnpm run typecheck` runs TypeScript checking.
 - `pnpm run test` runs Vitest unit tests.
 - `pnpm run test:e2e` builds the extension and runs Playwright smoke tests.
+- `pnpm run zip:all` creates release zips for Chrome, Firefox, and Edge.
 
 To run manually, build the extension, load `.output/chrome-mv3` as an unpacked Chrome extension, and test on `https://www.linkedin.com/search/results/content/*`.
 
 ## Coding Style & Naming Conventions
 
-Use JavaScript ES modules, two-space indentation, semicolons, and descriptive camelCase names. Keep filenames lowercase and hyphenated, for example `post-filter.js`.
+Use TypeScript ES modules, two-space indentation, semicolons, and descriptive camelCase names. Keep filenames lowercase and hyphenated, for example `post-filter.ts`.
 
-Write simple, readable code prioritizing clarity over cleverness. Use self-explanatory names and single-responsibility functions. Do not over-engineer or build for future requirements. Keep business logic lean, extract utilities only for reused operations, and centralize job-search types in `src/domain/job-search/types.js`; never scatter type definitions. Use language-native conventions, avoid circular dependencies, handle errors idiomatically, and log meaningful context. If code needs a comment explaining what it does, rewrite it.
+Write simple, readable code prioritizing clarity over cleverness. Use self-explanatory names and single-responsibility functions. Do not over-engineer or build for future requirements. Keep business logic lean, extract utilities only for reused operations, and centralize job-search types in `src/domain/job-search/types.ts`; never scatter type definitions. Use language-native conventions, avoid circular dependencies, handle errors idiomatically, and log meaningful context. If code needs a comment explaining what it does, rewrite it.
 
 Feature modules should expose small public functions and hide DOM, Chrome API, or storage details behind local adapters. Future features must not import LinkedIn extraction internals.
 
