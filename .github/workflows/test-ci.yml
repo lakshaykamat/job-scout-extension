@@ -75,6 +75,7 @@ jobs:
         with:
           name: browser-extension-builds
           path: .output/*-mv3
+          include-hidden-files: true
           if-no-files-found: error
 
   e2e:

@@ -75,23 +75,20 @@ jobs:
         if: steps.release-check.outputs.exists == 'false'
         run: pnpm run zip:all
 
-      - name: Create and push release tag
-        if: steps.release-check.outputs.exists == 'false'
-        run: |
-          if git rev-parse "$RELEASE_TAG" >/dev/null 2>&1; then
-            echo "Tag $RELEASE_TAG already exists locally."
-          else
-            git tag "$RELEASE_TAG" "$GITHUB_SHA"
-          fi
-          git push origin "$RELEASE_TAG"
-
       - name: Upload release artifact
         if: steps.release-check.outputs.exists == 'false'
         uses: actions/upload-artifact@v4
         with:
           name: browser-extension-release-zips
           path: .output/*.zip
+          include-hidden-files: true
           if-no-files-found: error
+
+      - name: Create or update release tag
+        if: steps.release-check.outputs.exists == 'false'
+        run: |
+          git tag --force "$RELEASE_TAG" "$GITHUB_SHA"
+          git push --force origin "refs/tags/$RELEASE_TAG"
 
       - name: Publish GitHub release
         if: steps.release-check.outputs.exists == 'false'
